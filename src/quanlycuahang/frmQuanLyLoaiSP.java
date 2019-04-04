@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package quanlycuahang;
-
+import java.sql.ResultSet; 
+import java.sql.SQLException; 
+import java.util.logging.Level; 
+import java.util.logging.Logger; 
+import javax.swing.JOptionPane; 
+import javax.swing.table.DefaultTableModel; 
 /**
  *
  * @author trung
@@ -27,21 +32,275 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTableLoaiSP = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        txtMaloai = new javax.swing.JTextField();
+        txtTenloai = new javax.swing.JTextField();
+        btSua = new javax.swing.JButton();
+        btLuu = new javax.swing.JButton();
+        btKLuu = new javax.swing.JButton();
+        btThoat = new javax.swing.JButton();
+        btThem = new javax.swing.JButton();
+        btXoa = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("DANH MỤC LOẠI SẢN PHẨM");
+
+        jTableLoaiSP.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Mã loại SP", "Tên loại"
+            }
+        ));
+        jTableLoaiSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableLoaiSPMouseClicked(evt);
+            }
+        });
+        jScrollPane2.setViewportView(jTableLoaiSP);
+
+        jLabel2.setText("Mã loại:");
+
+        jLabel3.setText("Tên loại:");
+
+        txtTenloai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTenloaiActionPerformed(evt);
+            }
+        });
+
+        btSua.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Edit File_24px.png")); // NOI18N
+        btSua.setText("Sửa");
+        btSua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSuaActionPerformed(evt);
+            }
+        });
+
+        btLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Save_24px.png")); // NOI18N
+        btLuu.setText("Lưu");
+        btLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btLuuActionPerformed(evt);
+            }
+        });
+
+        btKLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Do Not Disturb_24px.png")); // NOI18N
+        btKLuu.setText("K.Lưu");
+        btKLuu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btKLuuActionPerformed(evt);
+            }
+        });
+
+        btThoat.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Export_24px.png")); // NOI18N
+        btThoat.setText("Thoát");
+        btThoat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThoatActionPerformed(evt);
+            }
+        });
+
+        btThem.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Add File_24px.png")); // NOI18N
+        btThem.setText("Thêm");
+        btThem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btThemActionPerformed(evt);
+            }
+        });
+
+        btXoa.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Delete File_24px.png")); // NOI18N
+        btXoa.setText("Xóa");
+        btXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btXoaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addGap(26, 26, 26)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTenloai)
+                            .addComponent(txtMaloai)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(btThem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btSua, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btKLuu)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btThoat))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(189, 189, 189)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(21, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtMaloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtTenloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btThem)
+                    .addComponent(btXoa)
+                    .addComponent(btSua)
+                    .addComponent(btLuu)
+                    .addComponent(btKLuu)
+                    .addComponent(btThoat))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTableLoaiSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLoaiSPMouseClicked
+        // TODO add your handling code here:
+        //Hien thi du lieu len cac JTextField khi Click chuot vao JTable
+        try{
+            //Lay chi so dong dang chon
+            int row =this.jTableLoaiSP.getSelectedRow();
+            String ml=(this.jTableLoaiSP.getModel().getValueAt(row,0)).toString();
+            ResultSet rs= lsp.ShowLoaiSP(ml);//Goi ham lay du lieu theo ma loai
+            if(rs.next())//Neu co du lieu
+            {
+                this.txtMaloai.setText(rs.getString("Maloai"));
+                this.txtTenloai.setText(rs.getString("Tenloai"));
+            }
+        }
+        catch (SQLException e) {
+        }
+    }//GEN-LAST:event_jTableLoaiSPMouseClicked
+
+    private void txtTenloaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenloaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTenloaiActionPerformed
+
+    private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
+        // TODO add your handling code here:
+        String ml=txtMaloai.getText();
+        if(ml.length()==0) //Chua chon Ma loai
+        JOptionPane.showMessageDialog(null,"Vui long chon loi can sua",
+            "Thong bao",1);
+        else
+        {
+            setKhoa(false);//Mo khoa cac TextField
+            this.txtMaloai.enable(false);
+            setButton(false); //Khoa cac Button
+            cothem=false; //Gan cothem=false de ghi nhan trang thai la sua
+        }
+    }//GEN-LAST:event_btSuaActionPerformed
+
+    private void btLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuActionPerformed
+        // TODO add your handling code here:
+        String ml=txtMaloai.getText();
+        String tl=txtTenloai.getText();
+        if(ml.length()==0 || tl.length()==0)
+        JOptionPane.showMessageDialog(null,
+            "Vui long nhap Ma loai va ten loai","Thong bao",1);
+        else
+        if(ml.length()>2 || tl.length()>30)
+        JOptionPane.showMessageDialog(null,
+            "Ma loai chi 2 ky tu, ten loai la 20","Thong bao",1);
+        else
+        {
+            try {
+                if(cothem==true)    //Luu cho tthem moi
+                lsp.InsertData(ml, tl);
+                else                //Luu cho sua
+                lsp.EditData(ml, tl);
+                ClearData(); //goi ham xoa du lieu tron tableModel
+                ShowData(); //Do lai du lieu vao Table Model
+            }
+            catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null,"Cap nhat that bai",
+                    "Thong bao",1);
+            }
+            setKhoa(false);
+            setButton(true);
+        }
+    }//GEN-LAST:event_btLuuActionPerformed
+
+    private void btKLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btKLuuActionPerformed
+        // TODO add your handling code here:
+        setNull();
+        setKhoa(true);
+        setButton(true);
+    }//GEN-LAST:event_btKLuuActionPerformed
+
+    private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btThoatActionPerformed
+
+    private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
+        // TODO add your handling code here:
+        setNull();//Xoa trang TextField
+        setKhoa(false);//Mo khoa TextField
+        setButton(false);//Goi ham khoa cac Button
+        cothem=true;//Gan cothem = true de ghi nhan trang thai them moi
+    }//GEN-LAST:event_btThemActionPerformed
+
+    private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
+        // TODO add your handling code here:
+        String ml=txtMaloai.getText();
+        try {
+            if(ml.length()==0)
+            JOptionPane.showMessageDialog(null,"Chon 1 loai SP de xoa",
+                "Thong bao",1);
+            else
+            {
+                if(JOptionPane.showConfirmDialog(null, "Ban muon xoa loai " + ml + "nay hay khong?","Thong bao",2)==0)
+                {
+                    lsp.DeleteData(ml);//goi ham xoa du lieu theo ma loai
+                    ClearData();//Xoa du lieu trong tableModel
+                    ShowData();//Do du lieu vao table Model
+                    setNull();//Xoa trang Textfield
+                }
+            }
+        }
+        catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Xóa thất bại","Thong bao",1);
+        }
+    }//GEN-LAST:event_btXoaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -79,5 +338,18 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btKLuu;
+    private javax.swing.JButton btLuu;
+    private javax.swing.JButton btSua;
+    private javax.swing.JButton btThem;
+    private javax.swing.JButton btThoat;
+    private javax.swing.JButton btXoa;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable jTableLoaiSP;
+    private javax.swing.JTextField txtMaloai;
+    private javax.swing.JTextField txtTenloai;
     // End of variables declaration//GEN-END:variables
 }

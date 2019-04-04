@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package quanlycuahang;
+import Process.MonTheThao;
 import java.sql.ResultSet; 
 import java.sql.SQLException; 
 import java.util.logging.Level; 
@@ -19,8 +20,72 @@ public class frmMonTheoThao extends javax.swing.JFrame {
     /**
      * Creates new form frmMonTheoThao
      */
-    public frmMonTheoThao() {
+         private final MonTheThao lsp = new MonTheThao();  
+    private boolean cothem=true;
+     private final DefaultTableModel tableModel = new DefaultTableModel(); 
+    //Ham do du lieu vao tableModel 
+    public void ShowData() throws SQLException{         
+        ResultSet result=  lsp.ShowMonTheThao();           
+        try {             
+            while(result.next()){ // nếu còn đọc tiếp được một dòng dữ liệu 
+                String rows[] = new String[2]; 
+                rows[0] = result.getString(1); // lấy dữ liệu tại cột số 1 (ứng với mã hàng) 
+                rows[1] = result.getString(2); // lấy dữ liệu tai cột số 2 ứng với tên hàng                    
+                tableModel.addRow(rows); // đưa dòng dữ liệu vào tableModel  
+                //mỗi lần có sự thay đổi dữ liệu ở tableModel thì Jtable sẽ tự động update  
+            } 
+        }  
+       catch (SQLException e) { 
+        }  
+    }   
+    //Ham xoa du lieu trong tableModel 
+    public void ClearData() throws SQLException{ 
+         //Lay chi so dong cuoi cung 
+         int n=tableModel.getRowCount()-1; 
+         for(int i=n;i>=0;i--) 
+            tableModel.removeRow(i);//Remove tung dong          
+    }  
+    //Ham xoa cac TextField 
+    private void setNull() 
+    { 
+        //Xoa trang cac JtextField 
+        this.txtMaloai.setText(null); 
+        this.txtTenloai.setText(null); 
+        this.txtMaloai.requestFocus();       
+    } 
+    //Ham khoa cac TextField 
+    private void setKhoa(boolean a) 
+    { 
+        //Khoa hoac mo khoa cho Cac JTextField 
+        this.txtMaloai. setEnabled (!a); 
+        this.txtTenloai. setEnabled (!a); 
+    }   
+    //Ham khoa cac Button 
+    private void setButton(boolean a) 
+    { 
+        //Vo hieu hoac co hieu luc cho cac JButton 
+        this.btThem. setEnabled (a); 
+        this.btXoa. setEnabled (a); 
+        this.btSua. setEnabled (a); 
+        this.btLuu. setEnabled (!a); 
+        this.btKLuu. setEnabled (!a); 
+         this.btThoat. setEnabled (a); 
+    }
+    public frmMonTheoThao() throws SQLException {
         initComponents();
+         String []colsName = {"Mã Môn", "Tên môn"}; 
+        // đặt tiêu đề cột cho tableModel 
+        tableModel.setColumnIdentifiers(colsName);   
+        // kết nối jtable với tableModel   
+        jTableLoaiSP.setModel(tableModel);   
+        //gọi hàm ShowData để đưa dữ liệu vào tableModel  
+        ShowData();  
+        //goi Ham xoa trang cac TextField 
+        setNull(); 
+        //Goi ham Khoa cac TextField 
+        setKhoa(true); 
+        //Goi vo hieu 2 button Luu, K.Luu. Mo khoa 4 button con lao  
+        setButton(true); 
     }
 
     /**
@@ -285,7 +350,7 @@ public class frmMonTheoThao extends javax.swing.JFrame {
             //Lay chi so dong dang chon
             int row =this.jTableLoaiSP.getSelectedRow();
             String ml=(this.jTableLoaiSP.getModel().getValueAt(row,0)).toString();
-            ResultSet rs= lsp.ShowLoaiSP(ml);//Goi ham lay du lieu theo ma loai
+            ResultSet rs= lsp.ShowMon(ml);//Goi ham lay du lieu theo ma loai
             if(rs.next())//Neu co du lieu
             {
                 this.txtMaloai.setText(rs.getString("Maloai"));
@@ -304,7 +369,7 @@ public class frmMonTheoThao extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -329,11 +394,13 @@ public class frmMonTheoThao extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmMonTheoThao().setVisible(true);
-            }
-        });
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                new frmMonTheoThao().setVisible(true);
+//            }
+//        });
+        frmMonTheoThao f = new frmMonTheoThao(); 
+        f.setVisible(true); 
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

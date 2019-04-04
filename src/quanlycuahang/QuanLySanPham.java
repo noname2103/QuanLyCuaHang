@@ -6,16 +6,58 @@
 
 package quanlycuahang;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.table.DefaultTableModel;
+import Process.SanPham;
+
 /**
  *
  * @author DELL
  */
 public class QuanLySanPham extends javax.swing.JFrame {
+    private final SanPham sp = new SanPham();  
+    private boolean cothem=true;
+     private final DefaultTableModel tableModel = new DefaultTableModel(); 
 
-    /**
-     * Creates new form QuanLySanPham
-     */
-    public QuanLySanPham() {
+    public void ShowData() throws SQLException{         
+        ResultSet result=  sp.ShowLoaiSP();
+        try {             
+            while(result.next()){ // nếu còn đọc tiếp được một dòng dữ liệu 
+                String rows[] = new String[2]; 
+                rows[0] = result.getString(1); // lấy dữ liệu tại cột số 1 (ứng với mã hàng) 
+                rows[1] = result.getString(2); // lấy dữ liệu tai cột số 2 ứng với tên hàng                    
+                tableModel.addRow(rows); // đưa dòng dữ liệu vào tableModel  
+                //mỗi lần có sự thay đổi dữ liệu ở tableModel thì Jtable sẽ tự động update  
+            } 
+        }  
+       catch (SQLException e) { 
+        }  
+    }
+    
+    private void setNull() 
+    { 
+        //Xoa trang cac JtextField 
+        this.txtID.setText(null); 
+        this.txtTenSP.setText(null); 
+        this.txtDonGia.setText(null);
+        this.cbbLoai.requestFocus();
+        this.ccbMon.requestFocus();
+        this.areaMoTa.setText(null);    
+    } 
+    
+    private void setButton(boolean a) 
+    { 
+        //Vo hieu hoac co hieu luc cho cac JButton 
+        this.btnThem. setEnabled (a); 
+        this.btnXoa.setEnabled (a); 
+        this.btnSua.setEnabled (a); 
+        this.btnLuu.setEnabled (!a); 
+        this.btnKLuu.setEnabled (!a); 
+         this.btnThoat.setEnabled (a); 
+    }    
+    
+    public QuanLySanPham() throws SQLException {
         initComponents();
     }
 
@@ -88,58 +130,84 @@ public class QuanLySanPham extends javax.swing.JFrame {
         btnThem.setBackground(new java.awt.Color(204, 255, 204));
         btnThem.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnThem.setForeground(new java.awt.Color(51, 51, 0));
+        btnThem.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icons8-plus-40.png")); // NOI18N
         btnThem.setText("Thêm");
+        btnThem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThemMouseClicked(evt);
+            }
+        });
 
         btnXoa.setBackground(new java.awt.Color(255, 204, 153));
         btnXoa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnXoa.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icons8-trash-can-40.png")); // NOI18N
         btnXoa.setText("Xóa");
 
         btnSua.setBackground(new java.awt.Color(255, 255, 204));
         btnSua.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnSua.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icons8-edit-40.png")); // NOI18N
         btnSua.setText("Sửa");
 
+        btnLuu.setBackground(new java.awt.Color(128, 185, 255));
         btnLuu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icons8-checkmark-40.png")); // NOI18N
         btnLuu.setText("Lưu");
         btnLuu.setEnabled(false);
 
+        btnKLuu.setBackground(new java.awt.Color(255, 153, 153));
         btnKLuu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnKLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icons8-synchronize-40.png")); // NOI18N
         btnKLuu.setText("K. Lưu");
         btnKLuu.setEnabled(false);
+        btnKLuu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnKLuuMouseClicked(evt);
+            }
+        });
 
+        btnThoat.setBackground(new java.awt.Color(255, 153, 153));
         btnThoat.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        btnThoat.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icons8-delete-40.png")); // NOI18N
         btnThoat.setText("Thoát");
+        btnThoat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThoatMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(214, Short.MAX_VALUE)
-                .addComponent(btnThem)
-                .addGap(18, 18, 18)
-                .addComponent(btnXoa)
-                .addGap(18, 18, 18)
-                .addComponent(btnSua)
-                .addGap(97, 97, 97)
-                .addComponent(btnLuu)
-                .addGap(18, 18, 18)
-                .addComponent(btnKLuu)
-                .addGap(41, 41, 41)
+                .addContainerGap()
+                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(53, 53, 53)
+                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46)
+                .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(btnLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addComponent(btnKLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
                 .addComponent(btnThoat)
-                .addContainerGap())
+                .addGap(19, 19, 19))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnThem)
-                    .addComponent(btnXoa)
-                    .addComponent(btnSua)
-                    .addComponent(btnLuu)
-                    .addComponent(btnKLuu)
-                    .addComponent(btnThoat))
-                .addGap(33, 33, 33))
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnThoat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnThem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnKLuu)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(btnXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnLuu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -282,9 +350,9 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTimKiem, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,10 +367,25 @@ public class QuanLySanPham extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTimKiemActionPerformed
 
+    private void btnThoatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoatMouseClicked
+        // Thoat khoi form
+        this.dispose();
+    }//GEN-LAST:event_btnThoatMouseClicked
+
+    private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
+        // TODO add your handling code here:
+        setButton(false);
+    }//GEN-LAST:event_btnThemMouseClicked
+
+    private void btnKLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKLuuMouseClicked
+        // TODO add your handling code here:
+        setButton(true);
+    }//GEN-LAST:event_btnKLuuMouseClicked
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws SQLException {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -326,12 +409,9 @@ public class QuanLySanPham extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new QuanLySanPham().setVisible(true);
-            }
-        });
+                QuanLySanPham f = new QuanLySanPham(); 
+                f.setVisible(true); 
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

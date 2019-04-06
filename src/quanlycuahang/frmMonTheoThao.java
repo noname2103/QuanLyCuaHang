@@ -49,16 +49,16 @@ public class frmMonTheoThao extends javax.swing.JFrame {
     private void setNull() 
     { 
         //Xoa trang cac JtextField 
-        this.txtMaloai.setText(null); 
-        this.txtTenloai.setText(null); 
-        this.txtMaloai.requestFocus();       
+        this.txtMamon.setText(null); 
+        this.txtTenmon.setText(null); 
+        this.txtMamon.requestFocus();       
     } 
     //Ham khoa cac TextField 
     private void setKhoa(boolean a) 
     { 
         //Khoa hoac mo khoa cho Cac JTextField 
-        this.txtMaloai. setEnabled (!a); 
-        this.txtTenloai. setEnabled (!a); 
+        this.txtMamon. setEnabled (!a); 
+        this.txtTenmon. setEnabled (!a); 
     }   
     //Ham khoa cac Button 
     private void setButton(boolean a) 
@@ -77,7 +77,7 @@ public class frmMonTheoThao extends javax.swing.JFrame {
         // đặt tiêu đề cột cho tableModel 
         tableModel.setColumnIdentifiers(colsName);   
         // kết nối jtable với tableModel   
-        jTableLoaiSP.setModel(tableModel);   
+        jTableMon.setModel(tableModel);   
         //gọi hàm ShowData để đưa dữ liệu vào tableModel  
         ShowData();  
         //goi Ham xoa trang cac TextField 
@@ -97,29 +97,29 @@ public class frmMonTheoThao extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtTenloai = new javax.swing.JTextField();
+        txtTenmon = new javax.swing.JTextField();
         btThem = new javax.swing.JButton();
         btXoa = new javax.swing.JButton();
         btSua = new javax.swing.JButton();
         btLuu = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         btKLuu = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTableLoaiSP = new javax.swing.JTable();
         btThoat = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtMaloai = new javax.swing.JTextField();
+        txtMamon = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableMon = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtTenloai.addActionListener(new java.awt.event.ActionListener() {
+        txtTenmon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTenloaiActionPerformed(evt);
+                txtTenmonActionPerformed(evt);
             }
         });
 
-        btThem.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Add File_24px.png")); // NOI18N
+        btThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Add File_24px.png"))); // NOI18N
         btThem.setText("Thêm");
         btThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +127,7 @@ public class frmMonTheoThao extends javax.swing.JFrame {
             }
         });
 
-        btXoa.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Delete File_24px.png")); // NOI18N
+        btXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Delete File_24px.png"))); // NOI18N
         btXoa.setText("Xóa");
         btXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +135,7 @@ public class frmMonTheoThao extends javax.swing.JFrame {
             }
         });
 
-        btSua.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Edit File_24px.png")); // NOI18N
+        btSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Edit File_24px.png"))); // NOI18N
         btSua.setText("Sửa");
         btSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,7 +143,7 @@ public class frmMonTheoThao extends javax.swing.JFrame {
             }
         });
 
-        btLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Save_24px.png")); // NOI18N
+        btLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save_24px.png"))); // NOI18N
         btLuu.setText("Lưu");
         btLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,7 +154,7 @@ public class frmMonTheoThao extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("DANH MỤC MÔN THỂ THAO");
 
-        btKLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Do Not Disturb_24px.png")); // NOI18N
+        btKLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Do Not Disturb_24px.png"))); // NOI18N
         btKLuu.setText("K.Lưu");
         btKLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -162,25 +162,7 @@ public class frmMonTheoThao extends javax.swing.JFrame {
             }
         });
 
-        jTableLoaiSP.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Mã môn", "Tên môn thể thao"
-            }
-        ));
-        jTableLoaiSP.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTableLoaiSPMouseClicked(evt);
-            }
-        });
-        jScrollPane2.setViewportView(jTableLoaiSP);
-
-        btThoat.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Export_24px.png")); // NOI18N
+        btThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Export_24px.png"))); // NOI18N
         btThoat.setText("Thoát");
         btThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -192,11 +174,38 @@ public class frmMonTheoThao extends javax.swing.JFrame {
 
         jLabel3.setText("Tên môn:");
 
+        txtMamon.setEditable(false);
+
+        jTableMon.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Mã môn", "Tên môn"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jTableMon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMonMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTableMon);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,8 +215,8 @@ public class frmMonTheoThao extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtMaloai, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
-                            .addComponent(txtTenloai))
+                            .addComponent(txtMamon, javax.swing.GroupLayout.DEFAULT_SIZE, 533, Short.MAX_VALUE)
+                            .addComponent(txtTenmon))
                         .addGap(0, 26, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btThem)
@@ -226,20 +235,21 @@ public class frmMonTheoThao extends javax.swing.JFrame {
                 .addGap(205, 205, 205)
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtMaloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMamon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtTenloai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenmon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btThem)
@@ -248,17 +258,17 @@ public class frmMonTheoThao extends javax.swing.JFrame {
                     .addComponent(btLuu)
                     .addComponent(btKLuu)
                     .addComponent(btThoat))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtTenloaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenloaiActionPerformed
+    private void txtTenmonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTenmonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTenloaiActionPerformed
+    }//GEN-LAST:event_txtTenmonActionPerformed
 
     private void btThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThemActionPerformed
         // TODO add your handling code here:
@@ -270,14 +280,14 @@ public class frmMonTheoThao extends javax.swing.JFrame {
 
     private void btXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btXoaActionPerformed
         // TODO add your handling code here:
-        String ml=txtMaloai.getText();
+        String ml=txtMamon.getText();
         try {
             if(ml.length()==0)
-            JOptionPane.showMessageDialog(null,"Chon 1 loai SP de xoa",
+            JOptionPane.showMessageDialog(null,"Chon 1 mon the thao de xoa",
                 "Thong bao",1);
             else
             {
-                if(JOptionPane.showConfirmDialog(null, "Ban muon xoa loai " + ml + "nay hay khong?","Thong bao",2)==0)
+                if(JOptionPane.showConfirmDialog(null, "Ban muon xoa ma mon " + ml + "nay hay khong?","Thong bao",2)==0)
                 {
                     lsp.DeleteData(ml);//goi ham xoa du lieu theo ma loai
                     ClearData();//Xoa du lieu trong tableModel
@@ -293,14 +303,14 @@ public class frmMonTheoThao extends javax.swing.JFrame {
 
     private void btSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSuaActionPerformed
         // TODO add your handling code here:
-        String ml=txtMaloai.getText();
+        String ml=txtMamon.getText();
         if(ml.length()==0) //Chua chon Ma loai
         JOptionPane.showMessageDialog(null,"Vui long chon loi can sua",
             "Thong bao",1);
         else
         {
             setKhoa(false);//Mo khoa cac TextField
-            this.txtMaloai.enable(false);
+            this.txtMamon.enable(false);
             setButton(false); //Khoa cac Button
             cothem=false; //Gan cothem=false de ghi nhan trang thai la sua
         }
@@ -308,20 +318,20 @@ public class frmMonTheoThao extends javax.swing.JFrame {
 
     private void btLuuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLuuActionPerformed
         // TODO add your handling code here:
-        String ml=txtMaloai.getText();
-        String tl=txtTenloai.getText();
-        if(ml.length()==0 || tl.length()==0)
+        String ml=txtMamon.getText();
+        String tl=txtTenmon.getText();
+        if( tl.length()==0)
         JOptionPane.showMessageDialog(null,
-            "Vui long nhap Ma loai va ten loai","Thong bao",1);
+            "Vui lòng nhập tên môn","Thong bao",1);
         else
-        if(ml.length()>2 || tl.length()>30)
+        if( tl.length()>30)
         JOptionPane.showMessageDialog(null,
             "Ma loai chi 2 ky tu, ten loai la 20","Thong bao",1);
         else
         {
             try {
                 if(cothem==true)    //Luu cho tthem moi
-                lsp.InsertData(ml, tl);
+                lsp.InsertData(tl);
                 else                //Luu cho sua
                 lsp.EditData(ml, tl);
                 ClearData(); //goi ham xoa du lieu tron tableModel
@@ -343,28 +353,28 @@ public class frmMonTheoThao extends javax.swing.JFrame {
         setButton(true);
     }//GEN-LAST:event_btKLuuActionPerformed
 
-    private void jTableLoaiSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableLoaiSPMouseClicked
+    private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
         // TODO add your handling code here:
-        //Hien thi du lieu len cac JTextField khi Click chuot vao JTable
+        new frmQuanly().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btThoatActionPerformed
+
+    private void jTableMonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMonMouseClicked
+        // TODO add your handling code here:
         try{
             //Lay chi so dong dang chon
-            int row =this.jTableLoaiSP.getSelectedRow();
-            String ml=(this.jTableLoaiSP.getModel().getValueAt(row,0)).toString();
+            int row =this.jTableMon.getSelectedRow();
+            String ml=(this.jTableMon.getModel().getValueAt(row,0)).toString();
             ResultSet rs= lsp.ShowMon(ml);//Goi ham lay du lieu theo ma loai
             if(rs.next())//Neu co du lieu
             {
-                this.txtMaloai.setText(rs.getString("Maloai"));
-                this.txtTenloai.setText(rs.getString("Tenloai"));
+                this.txtMamon.setText(rs.getString("Maloai"));
+                this.txtTenmon.setText(rs.getString("Tenloai"));
             }
         }
         catch (SQLException e) {
         }
-    }//GEN-LAST:event_jTableLoaiSPMouseClicked
-
-    private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_btThoatActionPerformed
+    }//GEN-LAST:event_jTableMonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -413,9 +423,9 @@ public class frmMonTheoThao extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTableLoaiSP;
-    private javax.swing.JTextField txtMaloai;
-    private javax.swing.JTextField txtTenloai;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableMon;
+    private javax.swing.JTextField txtMamon;
+    private javax.swing.JTextField txtTenmon;
     // End of variables declaration//GEN-END:variables
 }

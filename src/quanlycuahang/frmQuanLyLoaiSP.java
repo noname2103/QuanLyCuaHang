@@ -144,7 +144,7 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
             }
         });
 
-        btSua.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Edit File_24px.png")); // NOI18N
+        btSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Edit File_24px.png"))); // NOI18N
         btSua.setText("Sửa");
         btSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -152,7 +152,7 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
             }
         });
 
-        btLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Save_24px.png")); // NOI18N
+        btLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Save_24px.png"))); // NOI18N
         btLuu.setText("Lưu");
         btLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,7 +160,7 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
             }
         });
 
-        btKLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Do Not Disturb_24px.png")); // NOI18N
+        btKLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Do Not Disturb_24px.png"))); // NOI18N
         btKLuu.setText("K.Lưu");
         btKLuu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -168,7 +168,7 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
             }
         });
 
-        btThoat.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Export_24px.png")); // NOI18N
+        btThoat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Export_24px.png"))); // NOI18N
         btThoat.setText("Thoát");
         btThoat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -176,7 +176,7 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
             }
         });
 
-        btThem.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Add File_24px.png")); // NOI18N
+        btThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Add File_24px.png"))); // NOI18N
         btThem.setText("Thêm");
         btThem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,7 +184,7 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
             }
         });
 
-        btXoa.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Delete File_24px.png")); // NOI18N
+        btXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/Delete File_24px.png"))); // NOI18N
         btXoa.setText("Xóa");
         btXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,9 +198,9 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
@@ -209,7 +209,6 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
                             .addComponent(txtTenloai)
                             .addComponent(txtMaloai)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(btThem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -297,18 +296,18 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
         // TODO add your handling code here:
         String ml=txtMaloai.getText();
         String tl=txtTenloai.getText();
-        if(ml.length()==0 || tl.length()==0)
+        if( tl.length()==0)
         JOptionPane.showMessageDialog(null,
             "Vui long nhap Ma loai va ten loai","Thong bao",1);
         else
-        if(ml.length()>2 || tl.length()>30)
+        if( tl.length()>30)
         JOptionPane.showMessageDialog(null,
             "Ma loai chi 2 ky tu, ten loai la 20","Thong bao",1);
         else
         {
             try {
                 if(cothem==true)    //Luu cho tthem moi
-                lsp.InsertData(ml, tl);
+                lsp.InsertData(tl);
                 else                //Luu cho sua
                 lsp.EditData(ml, tl);
                 ClearData(); //goi ham xoa du lieu tron tableModel
@@ -332,6 +331,7 @@ public class frmQuanLyLoaiSP extends javax.swing.JFrame {
 
     private void btThoatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btThoatActionPerformed
         // TODO add your handling code here:
+        new frmQuanly().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btThoatActionPerformed
 

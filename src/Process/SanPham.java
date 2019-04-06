@@ -29,7 +29,7 @@ public class SanPham {
         } 
         //Theo moi 1 dong du lieu vao table LoaiSP 
         public void InsertData(String tensp, int maloai, int mamon, String mota, int dongia, int soluong) throws SQLException{    
-           String sql = "INSERT INTO SANPHAM values(' ','" +tensp+"', '" +maloai+"', '" +mamon + "', '"+mota+"', '"+dongia+"', '"+soluong+"')";  
+           String sql = "INSERT INTO SANPHAM (TenSP, MaLoaiSP, MaMon, MoTa, DonGia, SoLuong) VALUES ('" +tensp+"', '" +maloai+"', '" +mamon + "', '"+mota+"', '"+dongia+"', '"+soluong+"')";  
            cn.UpdateData(sql); 
         } 
         //Dieu chinh 1 dong du lieu vao table LoaiSP 

@@ -29,9 +29,14 @@ public class QuanLySanPham extends javax.swing.JFrame {
             ResultSet result=  sp.ShowLoaiSP();
             try {             
                 while(result.next()){ // nếu còn đọc tiếp được một dòng dữ liệu 
-                    String rows[] = new String[2]; 
+                    String rows[] = new String[7]; 
                     rows[0] = result.getString(1); // lấy dữ liệu tại cột số 1 (ứng với mã hàng) 
-                    rows[1] = result.getString(2); // lấy dữ liệu tai cột số 2 ứng với tên hàng                    
+                    rows[1] = result.getString(2);
+                    rows[2] = result.getString(5);// lấy dữ liệu tai cột số 2 ứng với tên hàng     
+                    rows[3] = result.getString(6);
+                    rows[4] = result.getString(3);
+                    rows[5] = result.getString(4);
+                    rows[6] = result.getString(7);
                     tableModel.addRow(rows); // đưa dòng dữ liệu vào tableModel  
                     //mỗi lần có sự thay đổi dữ liệu ở tableModel thì Jtable sẽ tự động update  
                 } 
@@ -476,6 +481,11 @@ public class QuanLySanPham extends javax.swing.JFrame {
             { 
              this.txtID.setText(rs.getString("MaSP")); 
              this.txtTenSP.setText(rs.getString("TenSP")); 
+             this.areaMoTa.setText(rs.getString("MoTa"));
+             this.spinSoLuong.setValue(rs.getInt("SoLuong"));
+             this.spinnerDonGia.setValue(rs.getInt("DonGia"));
+             this.ccbMon.setSelectedIndex(rs.getInt("MaMon"));
+             this.cbbLoai.setSelectedIndex(rs.getInt("MaLoaiSP") );
             } 
         } 
         catch (SQLException e) { 
@@ -509,8 +519,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
         String tensp=txtTenSP.getText(); 
         int dongia= (Integer) spinnerDonGia.getValue();
         String mota= areaMoTa.getText(); 
-        int ml = cbbLoai.getSelectedIndex();
-        int mm = ccbMon.getSelectedIndex();
+        int ml = cbbLoai.getSelectedIndex() + 1;
+        int mm = ccbMon.getSelectedIndex() + 1;
         int soluong = (Integer) spinSoLuong.getValue();
 //         if(dongia.length()==0 || tensp.length()==0)              
 //                JOptionPane.showMessageDialog(null, "Vui long nhap Ma loai va ten loai","Thong bao",1); 

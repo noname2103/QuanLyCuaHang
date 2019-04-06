@@ -27,8 +27,8 @@ public class MonTheThao {
            return cn.LoadData(sql); 
         } 
         //Theo moi 1 dong du lieu vao table LoaiSP 
-        public void InsertData(String ml, String tl) throws SQLException{    
-           String sql = "INSERT INTO MONTHETHAO values('" + ml +"',N'" + tl +"')";  
+        public void InsertData(String tl) throws SQLException{    
+           String sql = "INSERT INTO MONTHETHAO values(N'" + tl +"')";  
            cn.UpdateData(sql); 
         } 
         //Dieu chinh 1 dong du lieu vao table LoaiSP 

@@ -28,14 +28,13 @@ public class SanPham {
            return cn.LoadData(sql); 
         } 
         //Theo moi 1 dong du lieu vao table LoaiSP 
-        public void InsertData(String ml, String tl) throws SQLException{    
-           String sql = "INSERT INTO SANPHAM values('" + ml +"',N'" + tl +"')";  
+        public void InsertData(String tensp, int maloai, int mamon, String mota, int dongia, int soluong) throws SQLException{    
+           String sql = "INSERT INTO SANPHAM values(' ','" +tensp+"', '" +maloai+"', '" +mamon + "', '"+mota+"', '"+dongia+"', '"+soluong+"')";  
            cn.UpdateData(sql); 
         } 
         //Dieu chinh 1 dong du lieu vao table LoaiSP 
         public void EditData(String ml, String tl) throws SQLException{    
-           String sql = "Update LoaiSP set Tenloai=N'" + tl + 
-"' where Maloai='" + ml +"'";         
+           String sql = "Update LoaiSP set Tenloai=N'" + tl + "' where Maloai='" + ml +"'";         
            cn.UpdateData(sql); 
         } 
         //Xoa 1 dong du lieu vao table LoaiSP 

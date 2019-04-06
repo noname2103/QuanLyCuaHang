@@ -6,11 +6,13 @@
 
 package quanlycuahang;
 
+import Process.LoaiSP;
+import Process.MonTheThao;
+import Process.SanPham;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import javax.swing.table.DefaultTableModel;
-import Process.SanPham;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,6 +20,8 @@ import javax.swing.JOptionPane;
  */
 public class QuanLySanPham extends javax.swing.JFrame {
     private final SanPham sp = new SanPham();  
+    LoaiSP lsp = new LoaiSP();
+    MonTheThao mtt = new MonTheThao();
     private boolean cothem=true;
      private final DefaultTableModel tableModel = new DefaultTableModel(); 
 
@@ -36,6 +40,32 @@ public class QuanLySanPham extends javax.swing.JFrame {
             }  
         }
         
+        public final void ShowDataCombo() {         
+            ResultSet result=null;           
+            try { 
+                result = lsp.ShowLoaiSP();            
+                while(result.next()){  
+                   //Them du lieu vao Combobox 
+                    cbbLoai.addItem(result.getString("TenLoaiSP")); 
+                } 
+            }  
+            catch (SQLException e) { 
+            }
+        }
+        
+        public final void ShowDataCombo2() {         
+            ResultSet result=null;           
+            try { 
+                result = mtt.ShowMonTheThao();            
+                while(result.next()){  
+                   //Them du lieu vao Combobox 
+                    ccbMon.addItem(result.getString("TenMon")); 
+                } 
+            }  
+            catch (SQLException e) { 
+            }
+        }
+        
         public void ClearData() throws SQLException{ 
          //Lay chi so dong cuoi cung 
          int n=tableModel.getRowCount()-1; 
@@ -48,16 +78,17 @@ public class QuanLySanPham extends javax.swing.JFrame {
             //Xoa trang cac JtextField 
             this.txtID.setText(null); 
             this.txtTenSP.setText(null); 
-            this.txtDonGia.setText(null);
+            this.spinnerDonGia.setValue(0);
             this.cbbLoai.requestFocus();
             this.ccbMon.requestFocus();
             this.areaMoTa.setText(null);    
+            this.spinSoLuong.setValue(0);
         } 
     
         private void setKhoa(boolean a) 
         { 
             //Khoa hoac mo khoa cho Cac JTextField 
-            this.txtDonGia.setEnabled (a); 
+            this.spinnerDonGia.setEnabled (a); 
             this.txtTenSP.setEnabled (a); 
             this.areaMoTa.setEnabled(a);
             this.cbbLoai.setEnabled(a);
@@ -78,7 +109,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     
     public QuanLySanPham() throws SQLException {
         initComponents();
-                 String []colsName = {"Mã Loai", "Tên loai"}; 
+                 String []colsName = {"Mã SP", "Tên SP", "Mô tả", "Đơn giá", "Loại", "Môn", "Số Lượng"}; 
         // đặt tiêu đề cột cho tableModel 
         tableModel.setColumnIdentifiers(colsName);   
         // kết nối jtable với tableModel   
@@ -125,10 +156,10 @@ public class QuanLySanPham extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         txtTenSP = new javax.swing.JTextField();
-        txtDonGia = new javax.swing.JTextField();
         cbbLoai = new javax.swing.JComboBox();
         ccbMon = new javax.swing.JComboBox();
         spinSoLuong = new javax.swing.JSpinner();
+        spinnerDonGia = new javax.swing.JSpinner();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -291,13 +322,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
         txtTenSP.setEnabled(false);
         txtTenSP.setMargin(new java.awt.Insets(4, 4, 4, 4));
 
-        txtDonGia.setEnabled(false);
-        txtDonGia.setMargin(new java.awt.Insets(4, 4, 4, 4));
-
-        cbbLoai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbLoai.setEnabled(false);
 
-        ccbMon.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         ccbMon.setEnabled(false);
 
         spinSoLuong.setEnabled(false);
@@ -319,11 +345,10 @@ public class QuanLySanPham extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(jLabel1))
                         .addGap(31, 31, 31)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(txtTenSP, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
-                                .addComponent(txtID))
-                            .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtTenSP, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE)
+                            .addComponent(txtID)
+                            .addComponent(spinnerDonGia))
                         .addGap(54, 54, 54)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -334,7 +359,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(cbbLoai, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(ccbMon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(spinSoLuong)))
+                                    .addComponent(spinSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)))
                             .addComponent(jLabel5))))
                 .addContainerGap())
         );
@@ -353,13 +378,17 @@ public class QuanLySanPham extends javax.swing.JFrame {
                     .addComponent(txtTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(ccbMon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5)
-                    .addComponent(spinSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5)
+                            .addComponent(spinSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(spinnerDonGia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(3, 3, 3)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,7 +427,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 67, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -425,6 +454,8 @@ public class QuanLySanPham extends javax.swing.JFrame {
         setButton(false);
         setKhoa(true); 
         setNull();
+        ShowDataCombo();
+        ShowDataCombo2();
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnKLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKLuuMouseClicked
@@ -474,30 +505,33 @@ public class QuanLySanPham extends javax.swing.JFrame {
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
-//        // TODO add your handling code here:
-//        String tensp=txtTenSP.getText(); 
-//        String tl=txtTenloai.getText(); 
-//        String maloai = cbbLoai.get(combobox.getSelectedIndex()).toString(); 
-//         if(ml.length()==0 || tl.length()==0)              
+        // TODO add your handling code here:
+        String tensp=txtTenSP.getText(); 
+        int dongia= (Integer) spinnerDonGia.getValue();
+        String mota= areaMoTa.getText(); 
+        int ml = cbbLoai.getSelectedIndex();
+        int mm = ccbMon.getSelectedIndex();
+        int soluong = (Integer) spinSoLuong.getValue();
+//         if(dongia.length()==0 || tensp.length()==0)              
 //                JOptionPane.showMessageDialog(null, "Vui long nhap Ma loai va ten loai","Thong bao",1); 
 //         else 
-//            if(ml.length()>2 || tl.length()>30)              
+//            if(dongia.length()>2 || tensp.length()>30)              
 //                JOptionPane.showMessageDialog(null, "Ma loai chi 2 ky tu, ten loai la 20","Thong bao",1); 
 //            else    
 //            { 
-//              try { 
-//                if(cothem==true)    //Luu cho tthem moi            
-//                    lsp.InsertData(ml, tl); 
-//                else                //Luu cho sua 
-//                    lsp.EditData(ml, tl); 
-//                ClearData(); //goi ham xoa du lieu tron tableModel 
-//                ShowData(); //Do lai du lieu vao Table Model 
-//              } 
-//              catch (SQLException ex) { 
-//                   JOptionPane.showMessageDialog(null,"Cap nhat that bai", "Thong bao",1); 
-//              }             
-//             setKhoa(false); 
-//             setButton(true); 
+              try { 
+                //if(cothem==true)    //Luu cho tthem moi            
+                    sp.InsertData(tensp, ml, mm, mota, dongia, soluong); 
+                //else                //Luu cho sua 
+                    //sp.EditData(ml, tl); 
+                ClearData(); //goi ham xoa du lieu tron tableModel 
+                ShowData(); //Do lai du lieu vao Table Model 
+              } 
+              catch (SQLException ex) { 
+                   JOptionPane.showMessageDialog(null,"Cap nhat that bai", "Thong bao",1); 
+              }             
+             setKhoa(false); 
+             setButton(true); 
 //         } 
     }//GEN-LAST:event_btnLuuMouseClicked
 
@@ -558,7 +592,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner spinSoLuong;
-    private javax.swing.JTextField txtDonGia;
+    private javax.swing.JSpinner spinnerDonGia;
     private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtTenSP;
     private javax.swing.JTextField txtTimKiem;

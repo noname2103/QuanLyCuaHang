@@ -35,17 +35,24 @@ public class QuanLySanPham extends javax.swing.JFrame {
         }  
     }
     
-    private void setNull() 
-    { 
-        //Xoa trang cac JtextField 
-        this.txtID.setText(null); 
-        this.txtTenSP.setText(null); 
-        this.txtDonGia.setText(null);
-        this.cbbLoai.requestFocus();
-        this.ccbMon.requestFocus();
-        this.areaMoTa.setText(null);    
-    } 
+        private void setNull() 
+        { 
+            //Xoa trang cac JtextField 
+            this.txtID.setText(null); 
+            this.txtTenSP.setText(null); 
+            this.txtDonGia.setText(null);
+            this.cbbLoai.requestFocus();
+            this.ccbMon.requestFocus();
+            this.areaMoTa.setText(null);    
+        } 
     
+        private void setKhoa(boolean a) 
+        { 
+            //Khoa hoac mo khoa cho Cac JTextField 
+            this.txtDonGia.setEnabled (!a); 
+            this.txtTenSP.setEnabled (!a); 
+        }  
+        
     private void setButton(boolean a) 
     { 
         //Vo hieu hoac co hieu luc cho cac JButton 
@@ -59,6 +66,19 @@ public class QuanLySanPham extends javax.swing.JFrame {
     
     public QuanLySanPham() throws SQLException {
         initComponents();
+                 String []colsName = {"Mã Loai", "Tên loai"}; 
+        // đặt tiêu đề cột cho tableModel 
+        tableModel.setColumnIdentifiers(colsName);   
+        // kết nối jtable với tableModel   
+        TableSanPham.setModel(tableModel);   
+                //gọi hàm ShowData để đưa dữ liệu vào tableModel  
+        ShowData();  
+        //goi Ham xoa trang cac TextField 
+        setNull(); 
+        //Goi ham Khoa cac TextField 
+        setKhoa(true); 
+        //Goi vo hieu 2 button Luu, K.Luu. Mo khoa 4 button con lao  
+        setButton(true); 
     }
 
     /**
@@ -223,6 +243,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
 
         areaMoTa.setColumns(20);
         areaMoTa.setRows(5);
+        areaMoTa.setEnabled(false);
         jScrollPane2.setViewportView(areaMoTa);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

@@ -29,7 +29,7 @@ public class SanPham {
         } 
         //Theo moi 1 dong du lieu vao table LoaiSP 
         public void InsertData(String ml, String tl) throws SQLException{    
-           String sql = "INSERT INTO LoaiSP values('" + ml +"',N'" + tl +"')";  
+           String sql = "INSERT INTO SANPHAM values('" + ml +"',N'" + tl +"')";  
            cn.UpdateData(sql); 
         } 
         //Dieu chinh 1 dong du lieu vao table LoaiSP 
@@ -40,7 +40,7 @@ public class SanPham {
         } 
         //Xoa 1 dong du lieu vao table LoaiSP 
         public void DeleteData(String ml) throws SQLException{    
-           String sql = "Delete from LoaiSP where Maloai='" + ml +"'";         
+           String sql = "Delete from SANPHAM where MaSP ='" + ml +"'";         
            cn.UpdateData(sql); 
         } 
         //Truy van lieu trong Table Sanpham theo Maloai 

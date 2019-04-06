@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.table.DefaultTableModel;
 import Process.SanPham;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,21 +21,28 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private boolean cothem=true;
      private final DefaultTableModel tableModel = new DefaultTableModel(); 
 
-    public void ShowData() throws SQLException{         
-        ResultSet result=  sp.ShowLoaiSP();
-        try {             
-            while(result.next()){ // nếu còn đọc tiếp được một dòng dữ liệu 
-                String rows[] = new String[2]; 
-                rows[0] = result.getString(1); // lấy dữ liệu tại cột số 1 (ứng với mã hàng) 
-                rows[1] = result.getString(2); // lấy dữ liệu tai cột số 2 ứng với tên hàng                    
-                tableModel.addRow(rows); // đưa dòng dữ liệu vào tableModel  
-                //mỗi lần có sự thay đổi dữ liệu ở tableModel thì Jtable sẽ tự động update  
-            } 
+        public void ShowData() throws SQLException{         
+            ResultSet result=  sp.ShowLoaiSP();
+            try {             
+                while(result.next()){ // nếu còn đọc tiếp được một dòng dữ liệu 
+                    String rows[] = new String[2]; 
+                    rows[0] = result.getString(1); // lấy dữ liệu tại cột số 1 (ứng với mã hàng) 
+                    rows[1] = result.getString(2); // lấy dữ liệu tai cột số 2 ứng với tên hàng                    
+                    tableModel.addRow(rows); // đưa dòng dữ liệu vào tableModel  
+                    //mỗi lần có sự thay đổi dữ liệu ở tableModel thì Jtable sẽ tự động update  
+                } 
+            }  
+            catch (SQLException e) { 
+            }  
+        }
+        
+        public void ClearData() throws SQLException{ 
+         //Lay chi so dong cuoi cung 
+         int n=tableModel.getRowCount()-1; 
+         for(int i=n;i>=0;i--) 
+            tableModel.removeRow(i);//Remove tung dong          
         }  
-       catch (SQLException e) { 
-        }  
-    }
-    
+        
         private void setNull() 
         { 
             //Xoa trang cac JtextField 
@@ -49,8 +57,12 @@ public class QuanLySanPham extends javax.swing.JFrame {
         private void setKhoa(boolean a) 
         { 
             //Khoa hoac mo khoa cho Cac JTextField 
-            this.txtDonGia.setEnabled (!a); 
-            this.txtTenSP.setEnabled (!a); 
+            this.txtDonGia.setEnabled (a); 
+            this.txtTenSP.setEnabled (a); 
+            this.areaMoTa.setEnabled(a);
+            this.cbbLoai.setEnabled(a);
+            this.ccbMon.setEnabled(a);
+            this.spinSoLuong.setEnabled(a);
         }  
         
     private void setButton(boolean a) 
@@ -76,7 +88,7 @@ public class QuanLySanPham extends javax.swing.JFrame {
         //goi Ham xoa trang cac TextField 
         setNull(); 
         //Goi ham Khoa cac TextField 
-        setKhoa(true); 
+        setKhoa(false); 
         //Goi vo hieu 2 button Luu, K.Luu. Mo khoa 4 button con lao  
         setButton(true); 
     }
@@ -133,6 +145,11 @@ public class QuanLySanPham extends javax.swing.JFrame {
                 "ID", "Tên sản phẩm", "Mô tả", "Giá", "Số lượng", "Loại", "Môn"
             }
         ));
+        TableSanPham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableSanPhamMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TableSanPham);
 
         txtTimKiem.setMargin(new java.awt.Insets(4, 4, 4, 4));
@@ -162,6 +179,11 @@ public class QuanLySanPham extends javax.swing.JFrame {
         btnXoa.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnXoa.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icons8-trash-can-40.png")); // NOI18N
         btnXoa.setText("Xóa");
+        btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnXoaMouseClicked(evt);
+            }
+        });
 
         btnSua.setBackground(new java.awt.Color(255, 255, 204));
         btnSua.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -173,6 +195,11 @@ public class QuanLySanPham extends javax.swing.JFrame {
         btnLuu.setIcon(new javax.swing.ImageIcon("C:\\Users\\DELL\\Downloads\\icons8-checkmark-40.png")); // NOI18N
         btnLuu.setText("Lưu");
         btnLuu.setEnabled(false);
+        btnLuu.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnLuuMouseClicked(evt);
+            }
+        });
 
         btnKLuu.setBackground(new java.awt.Color(255, 153, 153));
         btnKLuu.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -396,12 +423,83 @@ public class QuanLySanPham extends javax.swing.JFrame {
     private void btnThemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThemMouseClicked
         // TODO add your handling code here:
         setButton(false);
+        setKhoa(true); 
+        setNull();
     }//GEN-LAST:event_btnThemMouseClicked
 
     private void btnKLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnKLuuMouseClicked
         // TODO add your handling code here:
         setButton(true);
+        setKhoa(false); 
+        
     }//GEN-LAST:event_btnKLuuMouseClicked
+
+    private void TableSanPhamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableSanPhamMouseClicked
+        // TODO add your handling code here:
+        try{ 
+            //Lay chi so dong dang chon 
+            int row =this.TableSanPham.getSelectedRow(); 
+            String ml=(this.TableSanPham.getModel().getValueAt(row,0)).toString(); 
+            ResultSet rs= sp.ShowLoaiSP(ml);//Goi ham lay du lieu theo ma loai 
+            if(rs.next())//Neu co du lieu 
+            { 
+             this.txtID.setText(rs.getString("MaSP")); 
+             this.txtTenSP.setText(rs.getString("TenSP")); 
+            } 
+        } 
+        catch (SQLException e) { 
+        }
+    }//GEN-LAST:event_TableSanPhamMouseClicked
+
+    private void btnXoaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnXoaMouseClicked
+        // TODO add your handling code here:
+        String ml = txtID.getText(); 
+        try { 
+            if(ml.length()==0)              
+                JOptionPane.showMessageDialog(null,"Chọn 1 loại sản phẩm để xóa!", "Thông báo",1); 
+            else 
+            { 
+                if(JOptionPane.showConfirmDialog(null, "Bạn muốn xóa loại " + ml + " này hay không?","Thông báo",2) == 0) 
+                {     
+                    sp.DeleteData(ml);//goi ham xoa du lieu theo ma loai 
+                    ClearData();//Xoa du lieu trong tableModel 
+                    ShowData();//Do du lieu vao table Model 
+                    setNull();//Xoa trang Textfield 
+                } 
+             } 
+        }  
+        catch (SQLException ex) { 
+            JOptionPane.showMessageDialog(null,"Xóa thất bại","Thông báo",1); 
+        }
+    }//GEN-LAST:event_btnXoaMouseClicked
+
+    private void btnLuuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLuuMouseClicked
+//        // TODO add your handling code here:
+//        String tensp=txtTenSP.getText(); 
+//        String tl=txtTenloai.getText(); 
+//        String maloai = cbbLoai.get(combobox.getSelectedIndex()).toString(); 
+//         if(ml.length()==0 || tl.length()==0)              
+//                JOptionPane.showMessageDialog(null, "Vui long nhap Ma loai va ten loai","Thong bao",1); 
+//         else 
+//            if(ml.length()>2 || tl.length()>30)              
+//                JOptionPane.showMessageDialog(null, "Ma loai chi 2 ky tu, ten loai la 20","Thong bao",1); 
+//            else    
+//            { 
+//              try { 
+//                if(cothem==true)    //Luu cho tthem moi            
+//                    lsp.InsertData(ml, tl); 
+//                else                //Luu cho sua 
+//                    lsp.EditData(ml, tl); 
+//                ClearData(); //goi ham xoa du lieu tron tableModel 
+//                ShowData(); //Do lai du lieu vao Table Model 
+//              } 
+//              catch (SQLException ex) { 
+//                   JOptionPane.showMessageDialog(null,"Cap nhat that bai", "Thong bao",1); 
+//              }             
+//             setKhoa(false); 
+//             setButton(true); 
+//         } 
+    }//GEN-LAST:event_btnLuuMouseClicked
 
     /**
      * @param args the command line arguments

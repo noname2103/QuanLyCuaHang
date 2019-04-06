@@ -5,6 +5,8 @@
  */
 package quanlycuahang;
 
+import javax.swing.JDialog;
+import quanlycuahang.QuanLySanPham;
 /**
  *
  * @author trung
@@ -34,16 +36,17 @@ public class frmQuanly extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Used Product_24px.png")); // NOI18N
         jButton1.setText("Quản lý sản phẩm");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
-        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Category_24px.png")); // NOI18N
         jButton2.setText("Quản lý loại sản phẩm");
 
-        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Sports Mode_24px.png")); // NOI18N
         jButton3.setText("Quản lý môn thể thao");
 
-        jButton4.setIcon(new javax.swing.ImageIcon("C:\\Users\\trung\\OneDrive\\Desktop\\icon\\Export_24px.png")); // NOI18N
         jButton4.setText("Thoát");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -54,10 +57,9 @@ public class frmQuanly extends javax.swing.JFrame {
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(36, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -76,6 +78,12 @@ public class frmQuanly extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        // TODO add your handling code here:
+        JDialog dialog = new JDialog(QuanLySanPham, true); // parent, isModal
+    dialog.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
 
     /**
      * @param args the command line arguments
